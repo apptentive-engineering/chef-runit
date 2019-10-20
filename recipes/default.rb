@@ -29,4 +29,9 @@ packagecloud_repo "imeyer/runit" do
   type "rpm"
 end
 
+bash "update packagecloud GPG key" do
+  code 'sed -i "s/^gpgkey=file.\+$/gpgkey=https:\/\/packagecloud.io\/imeyer\/runit\/gpgkey/" /etc/yum.repos.d/imeyer_runit_.repo'
+  only_if "grep '^gpgkey=file' /etc/yum.repos.d/imeyer_runit_.repo"
+done
+
 package "runit"
